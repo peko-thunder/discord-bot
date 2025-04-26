@@ -1,8 +1,16 @@
-import { Collection, ObjectId } from "mongo";
-
 export interface IModel {
-  readonly collectionName: string
-  readonly collection: Collection<any>
+  readonly kv: Deno.Kv;
+  readonly keyName: string;
 
-  insertRecord(record: any): Promise<ObjectId>
+  insert(param: any): Promise<string>;
+
+  updateById(id: string, param: any): Promise<void>;
+
+  findById(id: string): Promise<any>;
+
+  deleteById(id: string): Promise<void>;
+
+  deleteAll(): Promise<void>;
+
+  selectAll(): Promise<any>;
 }

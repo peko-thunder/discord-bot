@@ -8,8 +8,6 @@ services:
     working_dir: /app
     ports:
       - "8000:8000"
-    networks:
-      - external
     environment:
       - NODE_ENV=local
       - CHOKIDAR_USEPOLLING=true
@@ -21,26 +19,3 @@ services:
       # - -c
       # - |
       # deno task watch
-
-  db:
-    image: mysql:8.0
-    container_name: discord-bot-db
-    ports:
-      - 3306:3306
-    networks:
-      - external
-    environment:
-      - TZ=Asia/Tokyo
-      - MYSQL_ROOT_PASSWORD=local_pass
-    volumes:
-      - mysql-data:/var/lib/mysql
-      - ./database/my.cnf:/etc/mysql/conf.d/my.cnf
-
-volumes:
-  mysql-data:
-    name: discord-bot-db-data
-
-networks:
-  external:
-    name: discord-bot
-    internal: false

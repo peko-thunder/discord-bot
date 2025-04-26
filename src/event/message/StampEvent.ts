@@ -41,7 +41,7 @@ export default class StampEvent implements IMessageEvent {
 
       // 結果をDBに保存する
       const dbAccessor = await DatabaseAccessor.connect();
-      await dbAccessor.StampLog.insertRecord({
+      await dbAccessor.StampLog.insert({
         channelId: String(message.channelId),
         guildId: String(message.guildId),
         messageId: String(message.id),
@@ -49,7 +49,6 @@ export default class StampEvent implements IMessageEvent {
         userName: user.username,
         stampName,
       });
-      dbAccessor.client.close();
     } catch (e) {
       // 同一Botで複数のログインセッションが存在する場合、
       // メッセージを削除後に別のランタイムで削除はできずエラーとなる
